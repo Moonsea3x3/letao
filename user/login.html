@@ -69,8 +69,14 @@
 
 						//4.处理登录后的逻辑
 						//比如跳转
+                        if(info.success){
+                        //判断验证成功跳转
 						location.href = '/';
-
+                        //验证成功跳转,结束弹出
+                        return;
+                        }
+                        //验证失败弹出提示
+                        alert(info.message);
 					}
 				})
 					
