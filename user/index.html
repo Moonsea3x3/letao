@@ -63,12 +63,15 @@
   //3.获取响应结果
 
     $.ajax({
-      url:'http://localhost:3000/',
+      url:'/api/user/queryUserMessage',
       type:'get',
       success:function(info){
        //3.获取响应结果
        console.log(info);
         
+        if(info.error){
+          location.href = '/user/login.html';
+        }
       }
     })
     //退出登录
