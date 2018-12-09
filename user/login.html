@@ -52,6 +52,40 @@
     //3.得到服务端的响应结果
     //4.处理登录后的逻辑
 
+//此页面地址中如果有url参数，那么登录成功或跳转至该页面，如果没有则默认跳转至首页
+    //1.判断有没有url并且获得url参数的值
+    //{ 一个地址是由若干部分构成：  
+    //协议  protocol
+    //域名（主机）  host
+    //端口  port
+    //路径  pathname
+    //参数  search
+    //锚点  hash  } 
+    //并且在js中通过location可以获得这些组成成分
+        // console.log(location);
+    
+
+    //并且将？字符删除
+    var search = location.search.slice(1);
+    //使用正则匹配url 参数的值
+    var reg = /url=(.+)/;
+    var match = reg.exec(search);
+   
+    //console.log(match[1]);
+
+    // if(match){
+    //     var url = match[1];
+    // }else{
+    //     var url = '/';
+    // }
+
+    var url = match && match[1];
+    url = url || '/';        
+
+
+
+
+    //2.根据url实现跳转
     //监听表单提交
     $('form').on('submit',function(){
         //1.获取用户填写的表单信息
@@ -71,7 +105,7 @@
 						//比如跳转
                         if(info.success){
                         //判断验证成功跳转
-						location.href = '/';
+						location.href = url;
                         //验证成功跳转,结束弹出
                         return;
                         }

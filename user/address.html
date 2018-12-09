@@ -60,14 +60,17 @@
   //获取地址列表
   //1.发送请求，通过接口获取
   //2.等待结果
-  //3.
+  
 
   $.ajax({
     url:'/api/address/queryAddress',
     type:'get',
     success:function(info){
+      //2.等待结果
       //未登录
-      if(info.error) return location.href = '/user/login.html';
+      //希望用户登录成功后，跳转到指定的页面，将这个指定的页面
+      //以参数形式传给login.html
+      if(info.error) return location.href = '/user/login.html?url='+location.href;
       //获取成功调用模板引擎
       var html = template('tpl',{lists:info});
 
