@@ -43,7 +43,7 @@
   {{each lists val}}
     <li class="mui-table-view-cell">
       <div class="mui-slider-right mui-disabled">
-          <a class="mui-btn mui-btn-red">删除</a>
+          <a class="mui-btn mui-btn-red delete" data-id = {{val.id}}>删除</a>
       </div>
       <a href="/user/edithAddress.html" class="mui-navigate-right mui-slider-handle">
           <div class="delivery">邮编：<span>{{val.postCode}}</span>&nbsp;收货人：<span>{{val.recipients}}</span></div>
@@ -73,9 +73,44 @@
 
       //添加DOM
       $('#address').html(html);
-      ///
+      
     }
   })
+  //删除地址
+  //1.添加点击事件
+  //2.发送请求
+  //3.等待结果
+  //4.处理相应结果
+
+  
+  //1.添加点击事件  
+  $('#address').on('click','.delete',function(){
+    //通过自定义属性获取当前地址的id
+    var id = $(this).attr('data-id');
+    var _this =  $(this);
+  //2.发送请求    
+    $.ajax({
+      url:'/api/address/deleteAddress',
+      type:'post',
+      data:{id:id},
+      success:function(info){
+      //3.等待结果
+      //4.处理相应结果
+      if(info.success) {
+        //当其祖先元素li删除
+        _this.parents('li').fadeOut(function(){
+          //淡出效果删除
+        $(this).remove();
+        })
+        
+
+        //_this.parents('li).remove();  //伪删除 但数据库有数据
+      }
+
+      }
+    })
+  })
+
 </script>
 </body>
 </html>
